@@ -28,6 +28,15 @@ connection.once("open",()=>{
 });
 
 
+//location routes
+const locationRouter = require("./routes/location");
+app.use("/api/location",locationRouter);
+
+//device routes
+const deviceRouter = require("./routes/device");
+app.use("/api/device",deviceRouter);
+
+
 app.listen(PORT,()=>{
     console.log(`Server is up and running on port ${PORT}`);
 })
