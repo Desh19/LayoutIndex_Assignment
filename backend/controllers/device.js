@@ -142,6 +142,21 @@ const deviceController={
     },
 
 
+        //get device by LocationName
+        getDeviceByLocationName : async (req,res)=>{
+            const locationName = req.params.locationName;          
+            try{
+                const devices = await Device.find({locationName:locationName});
+                res.json({
+                    msg:"Devices found",
+                    data: devices,
+                });
+            }catch(err){
+                return res.status(500).json({message:err.message});
+            }
+        },
+
+
 };
 
 module.exports = deviceController;
