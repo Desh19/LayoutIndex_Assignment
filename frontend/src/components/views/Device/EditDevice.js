@@ -95,7 +95,13 @@ const EditDevice = () => {
           })
 
       }catch(err){
-        console.log(err)
+        Swal({
+          title: "Error!",
+          text: err.response.data.msg,
+          icon: 'warning',
+          timer: 2000,
+          button: false,
+        })
       }
     };
       
@@ -114,11 +120,11 @@ const EditDevice = () => {
     
             let formData = new FormData()
             formData.append('file', file)
-            formData.append('upload_preset', 'surge-assesment')
-            formData.append('cloud_name', 'drao60sj6')
+            formData.append('upload_preset', 'LayoutIndex')
+            formData.append('cloud_name', 'dpgmk85rq')
     
             // setLoading(true)
-            const res = await axios.post( "https://api.cloudinary.com/v1_1/drao60sj6/image/upload",
+            const res = await axios.post( "https://api.cloudinary.com/v1_1/dpgmk85rq/image/upload",
             formData,
             {
               method: "post",
@@ -140,9 +146,9 @@ const EditDevice = () => {
    }
 
    const options = [
-    { value: "pos", label: "POS" },
-    { value: "kisok", label: "Kisok" },
-    { value: "signage", label: "signage" },
+    { value: "Pos", label: "POS" },
+    { value: "kiosk", label: "KIOSK" },
+    { value: "signage", label: "SIGNAGE" },
   ];
   
   
@@ -178,10 +184,10 @@ const EditDevice = () => {
                       </div>  
                       <div class="mb-3">
                           <label class="form-label">Select Location</label>
-                          <select class="form-select"  id="locationName" onChange={onChangeInput}>
+                          <select class="form-select"  id="locationName"  onChange={(e) => onLocationId(e)}>
                               <option selected disabled>{locationName}</option>
                               {locations.map((location,index) => (
-                                <option value={location.name} >{location.name}</option>
+                                <option value={location._id+"|"+location.name} >{location.name}</option>
                               ))}
                           </select>
                       </div>            
@@ -193,15 +199,16 @@ const EditDevice = () => {
                             </div>
                         </div>
                         <label for="formFile" class="form-label">Change Device Image</label>
-                          <input class="form-control" type="file" id="formFile" name='photo' onChange={handleImageChange}/>
+                          <input class="form-control" type="file" id="formFile" name='image' onChange={handleImageChange}/>
                       </div>
                       <div class="mb-3">
                           <label for="formFile" class="form-label">Status</label>
                           <div className="row ">
                                 <div >
                                 <select class="form-select"  name="status" id='status' value={editDevicePlayLoad.status} onChange={onChangeInput}>
-                                    <option value="inactive">Inactive</option>
-                                    <option value="active">Active</option>
+                                <option value="active">Active</option>
+                                <option value="inactive">Inactive</option>
+                                    
                                 </select>
 
                                 </div>

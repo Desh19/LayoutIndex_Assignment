@@ -1,4 +1,4 @@
-const Location = require('../models/location');
+const {Location,validateLocation} = require('../models/location');
 
 const locationController={
     
@@ -6,6 +6,10 @@ const locationController={
     addLocation: async (req,res)=>{
         try{
             const {name, address, phone, devices, locationID} = req.body;
+            const {error}=validateLocation(req.body);
+            if(error){
+                return res.status(400).json({msg:error.details[0].message});
+            }
             // Check if location already exists
             const existingName = await Location.findOne({name:name});
             if(existingName)
@@ -61,6 +65,14 @@ const locationController={
         try{
             const id = req.params.id;
             const {name, address, phone, devices} = req.body;
+            const validate={
+                name:req.body.name,
+                address:req.body.address,
+                phone:req.body.phone,}
+            const {error}=validateLocation(validate);
+            if(error){
+                return res.status(400).json({msg:error.details[0].message});
+            }
             
             await Location.findOneAndUpdate(
                 {_id:id},

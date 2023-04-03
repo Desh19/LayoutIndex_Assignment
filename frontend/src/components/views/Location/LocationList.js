@@ -31,36 +31,30 @@ const LocationList = () => {
         
     });
 
-    // const onClickEdite = (EID) => {
-    //     console.log("🚀 ~ file: ListLocation.js:62 ~ onClickEdite ~ EID:", EID)
-    //     navigate(`/location/edite/${EID}`)
-    // };
     const onClickAddLocation = (e) => {
         navigate('/locationAdd')
 
     };
 
-
-    
-
   return (
     <div>
-
+        <center>
         <h3 className="mb-4 pb-2 pb-md-0 mb-md-5">Location List</h3>
+        </center>
 
         <div className="container">
             <form class="form-inline my-2 my-lg-0">
-                <div className="row ">
-                    <input class="form-control mr-sm-2 inputSearch" type="text" placeholder='Enter the location' onChange={(e) => setSearchTerm(e.target.value)} />&nbsp;
-                    <button type="button" class="btn btn-primary inputSearch" onClick={(e) => onClickAddLocation()}>Add Location</button>
+                <div className="row">
+                    <input class="form-control mr-sm-2 inputSearch" type="text" placeholder='Search Location' onChange={(e) => setSearchTerm(e.target.value)} />&nbsp;         
                 </div>
+                <button type="button" class="btn btn-primary" onClick={(e) => onClickAddLocation()}>Add Location</button>
             </form>
         </div>
         <div class="row row-cols-1 row-cols-md-3 g-5 " style={{ margin:'10px' }}>
   {filteredLocations.map((location) => {
     try {
       const kioskCount = location.devices.filter(device => device === 'kiosk').length;
-      const posCount = location.devices.filter(device => device === 'POS').length;
+      const posCount = location.devices.filter(device => device === 'Pos').length;
       const signageCount = location.devices.filter(device => device === 'signage').length;
 
       return (
@@ -72,9 +66,9 @@ const LocationList = () => {
               <p class="card-text">Location Address : {location.address}</p>
               <p class="card-text">Contact Number : {location.phone}</p>
               <h5 class="card-title">Devices Count</h5>
-              <p>{kioskCount} Kiosks</p>
+              <p>{kioskCount} KIOSK</p>
               <p>{posCount} POS</p>
-              <p>{signageCount} Signage</p>
+              <p>{signageCount} SIGNAGE</p>
               <div className='row'>
                 <div className='btn-group'>
                   <a href={`/locationEdit/${location._id}`} class="btn btn-success">Edit Location Details</a>&nbsp;

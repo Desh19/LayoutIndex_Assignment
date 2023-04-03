@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import axios from 'axios';
-const swal = require('sweetalert')
+// const swal = require('sweetalert')
+const Swal = require('sweetalert2')
 
 const AllDevice = () => {
 
@@ -44,54 +45,44 @@ const AllDevice = () => {
 
     const deleteDevice = async (DeviceId) => {
         try{
-            swal({
+            Swal.fire({
                 title: "Are you sure?",
-                text: "You want to delete this device?",
+                text: "You won't be able to revert this!",
                 icon: "warning",
-                dangerMode: true,
-              })
-              .then(willDelete => {
-                if (willDelete) {
-                    const res =  axios.delete(`http://localhost:8090/api/device/delete/${DeviceId}`)
-                    .then(res => {
-                      swal({
-                        title: "Done!",
-                        text: "Device is deleted",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Yes, delete it!",
+              }).then((result) => {
+                if (result.value === true) {
+                  const res =  axios.delete(`http://localhost:8090/api/device/delete/${DeviceId}`).then((res) => {
+                    if (res) {
+                      Swal.fire({
+                        title: "Success!",
+                        text: "Your file has been deleted",
                         icon: "success",
-                        timer: 2000,
-                        button: false
-                      }).then(()=>{
+                        showConfirmButton: false,
+                        timer: 1500,
+                      }).then(() => {
                         window.location.reload();
-                      })
+                      });
+                    } else {
+                      Swal.fire({
+                        title: "Error!",
+                        text: "Something went wrong",
+                        icon: "error",
+                        showConfirmButton: false,
+                        timer: 1500,
+                      });
+                    }
                   });
                 }
-              })
-            // swal({
-            //     title: "Are you sure?",
-            //     text: "But you will still be able to retrieve this file.",
-            //     type: "warning",
-            //     showCancelButton: true,
-            //     confirmButtonColor: "#DD6B55",
-            //     confirmButtonText: "Yes, archive it!",
-            //     cancelButtonText: "No, cancel please!",
-            //     closeOnConfirm: false,
-            //     closeOnCancel: false
-            //   },
-            //   function(isConfirm){
-            //     if (isConfirm) {
-            //       swal("Deleted!", "Your imaginary file has been archived.", "success");
-            //     } else {
-            //       swal("Cancelled", "Your imaginary file is safe :)", "error");
-            //     }
-            //   }).then(()=>{
-            //     window.location.reload();
-            //   })
+              });
+   
         }catch(err){
             console.log(err.data.msg);
         }
     }
-
-    
 
   return (
     <div>
