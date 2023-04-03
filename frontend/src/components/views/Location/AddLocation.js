@@ -32,7 +32,13 @@ const AddLocation = () => {
               window.location.href = "/deviceAdd";
             })
         }catch(err){
-            console.log(err);
+          Swal({
+            title: "Error!",
+            text: err.response.data.msg,
+            icon: 'warning',
+            timer: 2000,
+            button: false,
+          })
         }
     };
   return (
@@ -77,8 +83,8 @@ const AddLocation = () => {
                      
                       </div>
 
-                      <div className="col-md-3 mb-4 pb-2">
-                        <input className="btn btn-primary btn-lg" type="submit" value="Submit" onClick={(e)=> onSubmit(e)}/>
+                      <div className="">
+                        <input className="btn btn-primary" type="submit" value="Submit" onClick={(e)=> onSubmit(e)}/>
                       </div>
 
                     </div>

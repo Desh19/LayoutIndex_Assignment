@@ -15,6 +15,7 @@ import EditDevice from './components/views/Device/EditDevice';
 import  AddLocation  from './components/views/Location/AddLocation';
 import LocationList from './components/views/Location/LocationList';
 import EditLocation from './components/views/Location/EditLocation';
+import SingleLocation from './components/views/Location/SingleLocation';
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
           <Route path='/locationAdd' element={<AddLocation />} />
           <Route path='/locationList' element={<LocationList />} />
           <Route path='/locationEdit/:id' element={<EditLocation />} />
+          <Route path='/singleLocation/:id' element={<SingleLocation />} />
         </Routes>  
       </Router>
       <Footer />

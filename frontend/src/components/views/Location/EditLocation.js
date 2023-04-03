@@ -64,7 +64,13 @@ const EditLocation = () => {
           })
 
       }catch(err){
-        console.log(err)
+        Swal({
+          title: "Error!",
+          text: err.response.data.msg,
+          icon: 'warning',
+          timer: 2000,
+          button: false,
+        })
       }
     };
 

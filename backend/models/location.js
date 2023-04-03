@@ -1,5 +1,7 @@
 const mongoose = require("mongoose");
 const {Schema, model} = mongoose;
+const Joi = require('joi');
+
 
 const locationSchema = new Schema({ 
     name:{
@@ -16,9 +18,34 @@ const locationSchema = new Schema({
     },
     devices:{
         type:Array,
-        default:[],
+        // default:[],
     },
 
 });
 
-module.exports = model("Location",locationSchema);
+
+const Location= mongoose.model("Location",locationSchema);
+
+const validateLocation = (data)=>{
+    const schema = Joi.object({
+
+        name:Joi.string()
+        .required()
+        .label('Location Name'),
+
+        address:Joi.string()
+        .required()
+        .label('Address'),
+
+        phone:Joi.string()
+        .length(10)
+        .pattern(/^[0-9]+$/)
+        .required().
+        label('Phone Number'),
+        
+        
+    })
+    return schema.validate(data);
+}
+
+module.exports = {Location,validateLocation};

@@ -14,8 +14,6 @@ const AddDevice = () => {
         type: "",
         locationName: "",
         image: "",
-        status:"",
-        locationId: "",
     });
     
     const onChangeInput = (e) => {
@@ -32,7 +30,7 @@ const AddDevice = () => {
        let valuesArray = combinedValues.split("|");
        setDevicePalyload({
          ...devicePalyload,
-         locationId:valuesArray[0],
+          locationId:valuesArray[0],
          locationName:valuesArray[1],
        });
    
@@ -67,7 +65,13 @@ const AddDevice = () => {
           window.location.href = "/";
         })
       } catch (err) {
-        console.log(err.response.data.msg);
+        Swal({
+          title: "Error!",
+          text: err.response.data.msg,
+          icon: 'warning',
+          timer: 2000,
+          button: false,
+        })
       }
     };
 
@@ -128,7 +132,7 @@ const AddDevice = () => {
                   <form>
                       <div class="mb-3">
                           <label class="form-label">Serial Number</label>
-                          <input type="text" class="form-control" id='serialNo' onChange={(e) => onChangeInput(e)}/>
+                          <input type="text" class="form-control" id='serialNo' onChange={(e) => onChangeInput(e)} required/>
                       </div>
                       <div class="mb-3">
                           <label class="form-label">Select Device Type</label>
@@ -142,9 +146,9 @@ const AddDevice = () => {
                             className=""
                             id='type'
                             options={[
-                              { value: "pos", label: "POS" },
-                              { value: "kiosk", label: "Kiosk" },
-                              { value: "signage", label: "Signage" },
+                              { value: "Pos", label: "POS" },
+                              { value: "kiosk", label: "KIOSK" },
+                              { value: "signage", label: "SIGNAGE" },
                             ]}
                             onChange={(e) => {
                               setType(e.value)

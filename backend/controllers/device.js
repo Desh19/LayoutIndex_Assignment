@@ -1,5 +1,5 @@
-const Device = require('../models/device');
-const Location = require('../models/location');
+const {Device,validateDevice,validateUpdateDevice} = require('../models/device');
+const {Location} = require('../models/location');
 
 const deviceController={
 
@@ -7,6 +7,16 @@ const deviceController={
     addDevice: async (req, res)=>{
         try{
             console.log(req.body)
+            const validate = {
+                serialNo:req.body.serialNo,
+                type:req.body.type,
+                locationName:req.body.locationName,
+                image:req.body.image,
+            }
+            const {error}=validateDevice(validate);
+            if(error){
+                return res.status(400).json({msg:error.details[0].message});
+            }
             const {serialNo, type, locationName, image, locationId } = req.body;
             //check if the serial number is already in the database
             const existingDevice = await Device.findOne({serialNo:serialNo});
@@ -80,18 +90,35 @@ const deviceController={
         try{
             console.log(req.body)
             const id = req.params.id;
-            const {serialNo, type, locationName, image, status} = req.body;
-
+            const {serialNo, type, locationName, image, status,locationId} = req.body;
+            const validate={
+                serialNo:req.body.serialNo,
+                type:req.body.type,
+                locationName:req.body.locationName,
+                image:req.body.image,
+                status:req.body.status,
+            }
+            const {error}=validateUpdateDevice(validate);
+            if(error){
+                return res.status(400).json({msg:error.details[0].message});
+            }
             console.log(type, locationName, image, status)
             await Device.findByIdAndUpdate(
                 {_id:id},
                 { type, locationName, image, status},
             );
+            
+            if(res){
+                res.json({
+                    msg:"Device updated successfully",
+                    data: {serialNo, type, locationName, image, status},
+                });
 
-            res.json({
-                msg:"Device updated successfully",
-                data: {serialNo, type, locationName, image, status},
-            });
+                await Location.updateOne(
+                    {_id:locationId},
+                    {$push:{devices:type}}
+                );
+                }
 
 
         } catch(err){
