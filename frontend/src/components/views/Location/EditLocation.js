@@ -60,7 +60,7 @@ const EditLocation = () => {
             timer: 2000,
             button: false,
           }).then(()=>{
-            window.location.href = "/";
+            window.location.href = "/locationList";
           })
 
       }catch(err){
@@ -82,7 +82,9 @@ return (
             <div className="col-12 col-lg-9 col-xl-7">
               <div className="card shadow-2-strong card-registration" style={{ borderRadius: "15px" }}>
                 <div className="card-body p-4 p-md-5">
+                  <center>
                   <h3 className="mb-4 pb-2 pb-md-0 mb-md-5">Edit Location</h3>
+                  </center>
                   <form>
 
                     <div className="form-outline">
@@ -116,7 +118,7 @@ return (
                      
                       </div>
 
-                      <div className="col-md-3 mb-4 pb-2">
+                      <div className="">
                         <input className="btn btn-primary btn-lg" type="submit" value="Edit" onClick={(e)=> onSubmit(e)}/>
                       </div>
 

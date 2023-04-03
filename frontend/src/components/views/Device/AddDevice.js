@@ -128,7 +128,9 @@ const AddDevice = () => {
             <div className="col-12 col-lg-9 col-xl-7">
               <div className="card shadow-2-strong card-registration" style={{ borderRadius: "15px" }}>
                 <div className="card-body p-4 p-md-5">
+                  <center> 
                   <h3 className="mb-4 pb-2 pb-md-0 mb-md-5">Add Device</h3>
+                  </center>
                   <form>
                       <div class="mb-3">
                           <label class="form-label">Serial Number</label>
