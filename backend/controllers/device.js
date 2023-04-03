@@ -6,8 +6,8 @@ const deviceController={
     //Add device to the database
     addDevice: async (req, res)=>{
         try{
-
-            const {serialNo, type, locationName, image, status, locationId } = req.body;
+            console.log(req.body)
+            const {serialNo, type, locationName, image, locationId } = req.body;
             //check if the serial number is already in the database
             const existingDevice = await Device.findOne({serialNo:serialNo});
             const existingLocation = await Location.findOne({name:locationName});
@@ -25,8 +25,7 @@ const deviceController={
                 serialNo, 
                 type, 
                 locationName, 
-                // image:image, 
-                status,
+                image:image, 
                 
             });
 
@@ -79,31 +78,19 @@ const deviceController={
     //update device
     updateDevice : async (req,res)=>{
         try{
-
+            console.log(req.body)
             const id = req.params.id;
-            const {serialNo, type, locationName, photo, status} = req.body;
+            const {serialNo, type, locationName, image, status} = req.body;
 
-            const existingDevice =await Device.findOne({
-                serialNo:serialNo,
-            });
-            const existingLocation = await Location.findOne({name:locationName});
-            if(existingDevice)
-                return res.status(400).json({
-                    msg:"Device already exists",
-            });
-            if(!existingLocation)
-                    return res.status(400).json({
-                    msg:"Location does not exist",
-            });
-
+            console.log(type, locationName, image, status)
             await Device.findByIdAndUpdate(
                 {_id:id},
-                { type, locationName, photo, status},
+                { type, locationName, image, status},
             );
 
             res.json({
                 msg:"Device updated successfully",
-                data: {serialNo, type, locationName, photo, status},
+                data: {serialNo, type, locationName, image, status},
             });
 
 

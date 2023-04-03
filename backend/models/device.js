@@ -9,21 +9,19 @@ const deviceSchema = new Schema({
     },
     type:{
         type:String,
-        enum:['pos','kiosk','signage'],
         required:true,
     },
     locationName:{
         type:String,
         required:true,
     },
-    // image:{
-    //     type:String,
-    //     required:true,
-    // },
+    image:{
+        type:String,
+        required:true,
+    },
     status:{
         type:String,
-        enum:['active','inactive'],
-        default:'active',
+        default:'Active',
     },
 });
 
