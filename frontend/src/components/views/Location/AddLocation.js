@@ -49,7 +49,9 @@ const AddLocation = () => {
             <div className="col-12 col-lg-9 col-xl-7">
               <div className="card shadow-2-strong card-registration" style={{ borderRadius: "15px" }}>
                 <div className="card-body p-4 p-md-5">
+                  <center>
                   <h3 className="mb-4 pb-2 pb-md-0 mb-md-5">Add Location</h3>
+                  </center>
                   <form>
 
                     <div className="form-outline">
