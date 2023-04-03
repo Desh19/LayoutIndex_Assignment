@@ -14,10 +14,10 @@ const locationSchema = new Schema({
         type:String,
         required:true,
     },
-    // devices:{
-    //     type:Array,
-    //     default:[],
-    // },
+    devices:{
+        type:Array,
+        default:[],
+    },
 
 });
 
